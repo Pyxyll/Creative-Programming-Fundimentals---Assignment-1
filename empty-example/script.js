@@ -28,7 +28,6 @@ function draw() {
   moonObject();
   road();
   cloudPos();
-  cloudDraw();
   house();
   witch();
   spaceCraft();
@@ -89,8 +88,8 @@ function house() {
   //door window
   arc(385, 750, 75, 75, 3.1, 0);
   windows();
-  bush();
   bricks();
+  bush();
 }
 
 function bush() {
@@ -98,7 +97,9 @@ function bush() {
   var xpos2 = 200;
   var xpos3 = 100;
   var xpos4 = 110;
+  //bush offset
   var moveFactor = 450;
+  //bush object
   fill(0, 99, 38);
   ellipse(xpos1, 830, 100, 100);
   ellipse(xpos2, 835, 100, 90);
@@ -114,8 +115,11 @@ function windows() {
   var xpos1 = 180,
     xpos2 = 185,
     xpos3 = 170;
-  var moveFactor = 325;
+  //window offset
+  var windowOffsetX = 325;
+  var windowOffsetY = 180;
   var winR, winG, winB;
+  //door bounds detection
   if (mouseX >= 330 && mouseX <= 444 && mouseY >= 685 && mouseY <= 879) {
     winR = random(255);
     winG = random(255);
@@ -125,33 +129,83 @@ function windows() {
     winG = 150;
     winB = 232;
   }
+  //bottom left window frame
   fill(180);
   rect(xpos1, 680, 85, 170);
+  //bottom left window pane
   fill(winR, winG, winB);
   rect(xpos2, 685, 75, 160);
+  //bottom left window sill
   fill(180);
   rect(xpos3, 840, 110, 15);
+  //bottom right window frame
   fill(180);
-  rect(xpos1 + moveFactor, 680, 85, 170);
+  rect(xpos1 + windowOffsetX, 680, 85, 170);
+  //bottom right window pane
   fill(winR, winG, winB);
-  rect(xpos2 + moveFactor, 685, 75, 160);
+  rect(xpos2 + windowOffsetX, 685, 75, 160);
+  //bottom right window sill
   fill(180);
-  rect(xpos3 + moveFactor, 840, 110, 15);
+  rect(xpos3 + windowOffsetX, 840, 110, 15);
+  //side window frame
   fill(180);
   rect(820, 670, 80, 170);
+  //side window pane
   fill(winR, winG, winB);
   rect(825, 675, 75, 160);
+  //
+  //
+  //
+  //top left window frame
+  fill(180);
+  rect(xpos1, 680 - windowOffsetY, 85, 140);
+  //top left window pane
+  fill(winR, winG, winB);
+  rect(xpos2, 685 - windowOffsetY, 75, 130);
+  //top left window sill
+  fill(180);
+  rect(xpos3, 810 - windowOffsetY, 110, 15);
+  //top right window frame
+  fill(180);
+  rect(xpos1 + windowOffsetX, 680 - windowOffsetY, 85, 140);
+  //top right window pane
+  fill(winR, winG, winB);
+  rect(xpos2 + windowOffsetX, 685 - windowOffsetY, 75, 130);
+  //top right window sill
+  fill(180);
+  rect(xpos3 + windowOffsetX, 810 - windowOffsetY, 110, 15);
+  //side window frame
+  fill(180);
+  rect(820, 670, 80, 170);
+  //side window pane
+  fill(winR, winG, winB);
+  rect(825, 675, 75, 160);
+  //side window sill
   fill(180);
   rect(815, 830, 100, 15);
 }
 
 function bricks() {
-  fill(59, 44, 29);
-  rect(135, 565, 50, 20, 5);
-  rect(160, 589, 50, 20, 5);
-  rect(445, 635, 50, 20, 5);
-  rect(420, 610, 50, 20, 5);
-  rect(475, 610, 50, 20, 5);
+  var brickPositionY1 = 485;
+  var brickPositionY2 = 510;
+  var brickOffSet1 = 513;
+  var brickOffSet2 = 523;
+  for (count = 0; count <= 7; count++) {
+    fill(59, 44, 29);
+    rect(98, brickPositionY1, 40, 20, 5);
+    rect(98, brickPositionY2, 30, 20, 5);
+    brickPositionY1 = brickPositionY1 + 50;
+    brickPositionY2 = brickPositionY2 + 50;
+  }
+  brickPositionY1 = 485;
+  brickPositionY2 = 510;
+  for (count = 0; count <= 7; count++) {
+    fill(59, 44, 29);
+    rect(98 + brickOffSet1, brickPositionY1, 40, 20, 5);
+    rect(98 + brickOffSet2, brickPositionY2, 30, 20, 5);
+    brickPositionY1 = brickPositionY1 + 50;
+    brickPositionY2 = brickPositionY2 + 50;
+  }
 }
 
 function mouseClicked() {
@@ -159,47 +213,62 @@ function mouseClicked() {
 }
 
 function witch() {
+  //head
   fill(46, 125, 37);
   ellipse(535, 345, 50, 75);
   triangle(510, 345, 560, 345, 535, 425);
+  //eyes
   fill(255);
   ellipse(524, 345, 20, 15);
   ellipse(546, 345, 20, 15);
+  //pupils
   fill(255, 0, 0);
   ellipse(526, 345, 10, 14);
   ellipse(548, 345, 10, 14);
+  //nose
   fill(97, 191, 86);
   ellipse(555, 360, 40, 10);
   ellipse(540, 358, 15, 12);
+  //warts
   fill(46, 125, 37);
   ellipse(538, 364, 5, 5);
   ellipse(570, 358, 3, 3);
+  //mouth
   fill(0);
   quad(527, 378, 544, 378, 537, 395, 529, 395);
+  //hat
   fill(85, 0, 128);
   ellipse(536, 312, 125, 20);
   triangle(500, 310, 570, 310, 537, 210);
 }
 
 function moonObject() {
+  //main moon object
   fill(251, 255, 194);
   ellipse(moonStartingPos, 300, 275, 275);
+  //moon details
   fill(207, 207, 151);
   ellipse(moonStartingPos + 50, 375, 45, 50);
   ellipse(moonStartingPos + 25, 320, 35, 40);
 }
 
 function spaceCraft() {
+  //beam
   fill(random(255), random(255), random(255), 50);
   quad(1264, 312, 1329, 312, 357, 206, 573, 480);
+  //engine
   fill(69, 168, 255);
   ellipse(1300, 280, 120, 90);
+  //body detail
   fill(102, 118, 140);
   ellipse(1300, 260, 300, 90);
+  //body
   fill(134, 152, 179);
   ellipse(1300, 235, 350, 100);
+  //cockpit
   fill(69, 168, 255);
   ellipse(1300, 200, 190, 100);
+  //flashing circles
   fill(random(255), random(255), random(255));
   ellipse(1170, 225, 45, 20);
   ellipse(1422, 225, 45, 20);
@@ -208,19 +277,8 @@ function spaceCraft() {
   ellipse(1297, 266, 45, 20);
 }
 
-function cloudDraw() {}
-
-function cloudsObject() {
-  fill(255, 255, 255, 240);
-  ellipse(830, 137, 150, 100);
-  ellipse(50 + 830, 137 - 45, 150, 100);
-  ellipse(100 + 830, 137 - 0, 160, 100);
-  ellipse(150 + 830, 137 - 30, 100, 75);
-  ellipse(830 - 40, 137 + 30, 110, 75);
-  ellipse(830 + 140, 137 + 35, 60, 50);
-}
-
 function cloudPos() {
+  //creating offset factor for mouse reactive clouds
   var mouseOffsetX = mouseX / 100;
   var mouseOffsetY = mouseY / 100;
   displayClouds(830 - mouseOffsetX, 137 - mouseOffsetY);
@@ -232,6 +290,7 @@ function cloudPos() {
 function displayClouds(xmod, ymod) {
   var xmod;
   var ymod;
+  //creating full cloud object
   fill(255, 255, 255, 240);
   ellipse(xmod, ymod, 150, 100);
   ellipse(50 + xmod, ymod - 45, 150, 100);
@@ -243,27 +302,32 @@ function displayClouds(xmod, ymod) {
 
 function streetLamp() {
   var lampDetailX = 970;
+  //lamp body
   fill(38, 38, 38);
   rect(955, 860, 80, 20, 5);
   rect(965, 680, 60, 200);
   rect(955, 660, 80, 20, 5);
   rect(985, 430, 20, 250);
+  //loop to create street lamp details
   for (count = 1; count <= 6; count++) {
     fill(18, 18, 18);
     rect(lampDetailX, 685, 5, 170);
     lampDetailX = lampDetailX + 10;
   }
+  //light bulb
   fill(255, 244, 163);
   ellipse(995, 435, 75, 55);
+  //lamp cover
   fill(38, 38, 38);
   rect(955, 405, 80, 30, 5);
+  //lightbeam and cast
   fill(255, 244, 163, 75);
   quad(958, 435, 1035, 435, 1153, 949, 853, 949);
   ellipse(1005, 946, 300, 100);
-  //996,Y= 948
 }
 
 function keyPressed() {
+  //green square control with arrow keys (using keyis down for better directional control)
   fill(0, 255, 0);
   rect(cnvX, cnvY, 100, 100, 5);
   if (keyIsDown(UP_ARROW)) {
@@ -278,16 +342,28 @@ function keyPressed() {
   if (keyIsDown(LEFT_ARROW)) {
     cnvX -= vel;
   }
-
-  if (cnvX >= 2000) {
-    cnvX = 1;
-  } else if (cnvX <= -50) {
-    cnvX = 2000;
+  //Limiting square movement
+  if (cnvX >= 1900) {
+    cnvX = 1900;
+  } else if (cnvX <= 0) {
+    cnvX = 0;
   }
 
-  if (cnvY >= 1000) {
+  if (cnvY >= 900) {
+    cnvY = 900;
+  } else if (cnvY <= 0) {
     cnvY = 0;
-  } else if (cnvY <= -50) {
-    cnvY = 1000;
   }
+  //resetting square when reaching canvas bounds
+  // if (cnvX >= 2000) {
+  //   cnvX = 1;
+  // } else if (cnvX <= -50) {
+  //   cnvX = 2000;
+  // }
+
+  // if (cnvY >= 1000) {
+  //   cnvY = 0;
+  // } else if (cnvY <= -50) {
+  //   cnvY = 1000;
+  // }
 }
