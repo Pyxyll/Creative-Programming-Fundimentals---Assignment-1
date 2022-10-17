@@ -7,7 +7,7 @@ var imageBackground;
 let y = 0;
 let cnvX = 2000 / 2;
 let cnvY = 1000 / 2;
-let vel = 15;
+let vel = 10;
 let soundEffect;
 
 function setup() {
@@ -332,7 +332,7 @@ function streetLamp() {
 
 function keyPressed() {
   //green square control with arrow keys (using keyis down for better directional control)
-  fill(0, 255, 0);
+  fill(0, 255, 0, 200);
   rect(cnvX, cnvY, 100, 100, 5);
   if (keyIsDown(UP_ARROW)) {
     cnvY -= vel;
