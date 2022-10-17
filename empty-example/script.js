@@ -8,6 +8,7 @@ let y = 0;
 let cnvX = 2000 / 2;
 let cnvY = 1000 / 2;
 let vel = 15;
+let soundEffect;
 
 function setup() {
   //Co-ord print function call
@@ -16,6 +17,8 @@ function setup() {
   createCanvas(2000, 1000);
   //Load background image
   imageBackground = loadImage("nightsky.png");
+  soundFormats("mp3", "ogg");
+  soundEffect = loadSound("soundeffect.mp3");
 }
 
 function draw() {
@@ -25,6 +28,7 @@ function draw() {
   if (moonStartingPos >= width) {
     moonStartingPos = -200;
   }
+
   moonObject();
   road();
   cloudPos();
