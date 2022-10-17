@@ -2,76 +2,56 @@
 //Date Started: 06/10/22
 //Purpose of Program: Assignment one - House
 
-var xpos = -200;
-var bg;
+var moonStartingPos = -200;
+var imageBackground;
 let y = 0;
 let cnvX = 2000 / 2;
 let cnvY = 1000 / 2;
-let speed = 5;
+let vel = 15;
 
 function setup() {
+  //Co-ord print function call
   mouseClicked();
   //create a 2000px x 1000px canvas
   createCanvas(2000, 1000);
-  bg = loadImage("bg.png");
+  //Load background image
+  imageBackground = loadImage("nightsky.png");
 }
 
 function draw() {
-  background(bg);
-  xpos = xpos + 3;
-  if (xpos >= width) {
-    xpos = -200;
+  background(imageBackground);
+  //Moon move & reset
+  moonStartingPos = moonStartingPos + 3;
+  if (moonStartingPos >= width) {
+    moonStartingPos = -200;
   }
-
   moonObject();
   road();
-  roadLines();
-  curb();
   cloudPos();
+  cloudDraw();
   house();
   witch();
-  spacecraft();
+  spaceCraft();
   streetLamp();
   keyPressed();
 }
 
 function road() {
+  //Road base
   strokeWeight(0);
   fill(155);
   rect(0, 900, 2000, 100);
-}
-
-function roadLines() {
-  linesElements(0, 50);
-  linesElements(100, 150);
-  linesElements(200, 250);
-  linesElements(300, 350);
-  linesElements(400, 450);
-  linesElements(500, 550);
-  linesElements(600, 650);
-  linesElements(700, 750);
-  linesElements(800, 850);
-  linesElements(900, 950);
-  linesElements(1000, 1050);
-  linesElements(1100, 1150);
-  linesElements(1200, 1250);
-  linesElements(1300, 1350);
-  linesElements(1400, 1450);
-  linesElements(1500, 1550);
-  linesElements(1500, 1550);
-  linesElements(1600, 1650);
-  linesElements(1700, 1750);
-  linesElements(1800, 1850);
-  linesElements(1900, 1950);
-}
-
-function linesElements(pos1, pos2) {
-  stroke(255);
-  strokeWeight(15);
-  line(pos1, 950, pos2, 950);
-}
-
-function curb() {
+  //Road lines
+  var linePos1 = 50;
+  var linePos2 = 0;
+  for (count = 0; count <= 21; count++) {
+    stroke(255);
+    strokeWeight(15);
+    line(linePos1, 950, linePos2, 950);
+    linePos1 = linePos1 + 100;
+    linePos2 = linePos2 + 100;
+  }
+  //Curb
   strokeWeight(0);
   fill(100);
   rect(0, 880, 2000, 20);
@@ -108,7 +88,6 @@ function house() {
   rect(365, 825, 50, 10);
   //door window
   arc(385, 750, 75, 75, 3.1, 0);
-  //side window
   windows();
   bush();
   bricks();
@@ -176,7 +155,7 @@ function bricks() {
 }
 
 function mouseClicked() {
-  print("X= " + mouseX + "," + "Y= " + mouseY);
+  print(mouseX + "," + mouseY);
 }
 
 function witch() {
@@ -197,19 +176,20 @@ function witch() {
   ellipse(570, 358, 3, 3);
   fill(0);
   quad(527, 378, 544, 378, 537, 395, 529, 395);
+  fill(85, 0, 128);
   ellipse(536, 312, 125, 20);
   triangle(500, 310, 570, 310, 537, 210);
 }
 
 function moonObject() {
   fill(251, 255, 194);
-  ellipse(xpos, 300, 275, 275);
+  ellipse(moonStartingPos, 300, 275, 275);
   fill(207, 207, 151);
-  ellipse(xpos + 50, 375, 45, 50);
-  ellipse(xpos + 25, 320, 35, 40);
+  ellipse(moonStartingPos + 50, 375, 45, 50);
+  ellipse(moonStartingPos + 25, 320, 35, 40);
 }
 
-function spacecraft() {
+function spaceCraft() {
   fill(random(255), random(255), random(255), 50);
   quad(1264, 312, 1329, 312, 357, 206, 573, 480);
   fill(69, 168, 255);
@@ -228,11 +208,25 @@ function spacecraft() {
   ellipse(1297, 266, 45, 20);
 }
 
+function cloudDraw() {}
+
+function cloudsObject() {
+  fill(255, 255, 255, 240);
+  ellipse(830, 137, 150, 100);
+  ellipse(50 + 830, 137 - 45, 150, 100);
+  ellipse(100 + 830, 137 - 0, 160, 100);
+  ellipse(150 + 830, 137 - 30, 100, 75);
+  ellipse(830 - 40, 137 + 30, 110, 75);
+  ellipse(830 + 140, 137 + 35, 60, 50);
+}
+
 function cloudPos() {
-  displayClouds(830, 137);
-  displayClouds(94, 288);
-  displayClouds(1260, 518);
-  displayClouds(1801, 78);
+  var mouseOffsetX = mouseX / 100;
+  var mouseOffsetY = mouseY / 100;
+  displayClouds(830 - mouseOffsetX, 137 - mouseOffsetY);
+  displayClouds(94 + mouseOffsetX, 288 + mouseOffsetY);
+  displayClouds(1260 - mouseOffsetX, 518 - mouseOffsetY);
+  displayClouds(1801 + mouseOffsetX, 78 + mouseOffsetY);
 }
 
 function displayClouds(xmod, ymod) {
@@ -248,39 +242,52 @@ function displayClouds(xmod, ymod) {
 }
 
 function streetLamp() {
+  var lampDetailX = 970;
   fill(38, 38, 38);
   rect(955, 860, 80, 20, 5);
   rect(965, 680, 60, 200);
   rect(955, 660, 80, 20, 5);
   rect(985, 430, 20, 250);
-  fill(18, 18, 18);
-  rect(970, 685, 5, 170);
-  rect(980, 685, 5, 170);
-  rect(990, 685, 5, 170);
-  rect(1000, 685, 5, 170);
-  rect(1010, 685, 5, 170);
-  rect(1020, 685, 5, 170);
+  for (count = 1; count <= 6; count++) {
+    fill(18, 18, 18);
+    rect(lampDetailX, 685, 5, 170);
+    lampDetailX = lampDetailX + 10;
+  }
   fill(255, 244, 163);
   ellipse(995, 435, 75, 55);
   fill(38, 38, 38);
   rect(955, 405, 80, 30, 5);
   fill(255, 244, 163, 75);
   quad(958, 435, 1035, 435, 1153, 949, 853, 949);
+  ellipse(1005, 946, 300, 100);
+  //996,Y= 948
 }
 
 function keyPressed() {
   fill(0, 255, 0);
   rect(cnvX, cnvY, 100, 100, 5);
   if (keyIsDown(UP_ARROW)) {
-    cnvY -= speed;
+    cnvY -= vel;
   }
   if (keyIsDown(DOWN_ARROW)) {
-    cnvY += speed;
+    cnvY += vel;
   }
   if (keyIsDown(RIGHT_ARROW)) {
-    cnvX += speed;
+    cnvX += vel;
   }
   if (keyIsDown(LEFT_ARROW)) {
-    cnvX -= speed;
+    cnvX -= vel;
+  }
+
+  if (cnvX >= 2000) {
+    cnvX = 1;
+  } else if (cnvX <= -50) {
+    cnvX = 2000;
+  }
+
+  if (cnvY >= 1000) {
+    cnvY = 0;
+  } else if (cnvY <= -50) {
+    cnvY = 1000;
   }
 }
