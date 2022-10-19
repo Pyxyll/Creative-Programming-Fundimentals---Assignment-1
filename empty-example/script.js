@@ -8,7 +8,7 @@ let y = 0;
 let cnvX = 2000 / 2;
 let cnvY = 1000 / 2;
 let vel = 10;
-let soundEffect;
+
 
 function setup() {
   //Co-ord print function call
@@ -17,8 +17,6 @@ function setup() {
   createCanvas(2000, 1000);
   //Load background image
   imageBackground = loadImage("nightsky.png");
-  soundFormats("mp3", "ogg");
-  soundEffect = loadSound("soundeffect.mp3");
 }
 
 function draw() {
@@ -77,7 +75,7 @@ function house() {
   fill(25);
   triangle(50, 480, 360, 200, 700, 480);
   triangle(650, 480, 650, 630, 950, 630);
-  //door elements
+  //-----door elements-----//
   //door frame
   fill(180);
   rect(325, 680, 125, 200);
@@ -92,8 +90,22 @@ function house() {
   //door window
   arc(385, 750, 75, 75, 3.1, 0);
   windows();
+  electricBox();
+  noStroke();
   bricks();
   bush();
+}
+
+function electricBox() {
+  fill(155);
+  rect(695, 720, 75, 100);
+  fill(200);
+  rect(700, 725, 65, 90);
+  fill(246, 255, 0);
+  stroke(0);
+  strokeWeight(2);
+  strokeJoin(ROUND);
+  triangle(735, 745, 750, 780, 720, 780);
 }
 
 function bush() {
@@ -142,6 +154,28 @@ function windows() {
   //bottom left window sill
   fill(180);
   rect(xpos3, 840, 110, 15);
+  //bottom left window shine
+  fill(255, 255, 255, 100);
+  quad(
+    185,
+    520 + windowOffsetY,
+    260,
+    555 + windowOffsetY,
+    260,
+    584 + windowOffsetY,
+    185,
+    550 + windowOffsetY
+  );
+  quad(
+    185,
+    561 + windowOffsetY,
+    260,
+    594 + windowOffsetY,
+    260,
+    603 + windowOffsetY,
+    185,
+    570 + windowOffsetY
+  );
   //bottom right window frame
   fill(180);
   rect(xpos1 + windowOffsetX, 680, 85, 170);
@@ -151,6 +185,28 @@ function windows() {
   //bottom right window sill
   fill(180);
   rect(xpos3 + windowOffsetX, 840, 110, 15);
+  //bottom right window shine
+  fill(255, 255, 255, 100);
+  quad(
+    185 + windowOffsetX,
+    520 + windowOffsetY,
+    260 + windowOffsetX,
+    555 + windowOffsetY,
+    260 + windowOffsetX,
+    584 + windowOffsetY,
+    185 + windowOffsetX,
+    550 + windowOffsetY
+  );
+  quad(
+    185 + windowOffsetX,
+    561 + windowOffsetY,
+    260 + windowOffsetX,
+    594 + windowOffsetY,
+    260 + windowOffsetX,
+    603 + windowOffsetY,
+    185 + windowOffsetX,
+    570 + windowOffsetY
+  );
   //side window frame
   fill(180);
   rect(820, 670, 80, 170);
@@ -169,6 +225,10 @@ function windows() {
   //top left window sill
   fill(180);
   rect(xpos3, 810 - windowOffsetY, 110, 15);
+  //top left window shine
+  fill(255, 255, 255, 100);
+  quad(185, 520, 260, 555, 260, 584, 185, 550);
+  quad(185, 561, 260, 594, 260, 603, 185, 570);
   //top right window frame
   fill(180);
   rect(xpos1 + windowOffsetX, 680 - windowOffsetY, 85, 140);
@@ -178,6 +238,28 @@ function windows() {
   //top right window sill
   fill(180);
   rect(xpos3 + windowOffsetX, 810 - windowOffsetY, 110, 15);
+  //top right window shine
+  fill(255, 255, 255, 100);
+  quad(
+    185 + windowOffsetX,
+    520,
+    260 + windowOffsetX,
+    555,
+    260 + windowOffsetX,
+    584,
+    185 + windowOffsetX,
+    550
+  );
+  quad(
+    185 + windowOffsetX,
+    561,
+    260 + windowOffsetX,
+    594,
+    260 + windowOffsetX,
+    603,
+    185 + windowOffsetX,
+    570
+  );
   //side window frame
   fill(180);
   rect(820, 670, 80, 170);
