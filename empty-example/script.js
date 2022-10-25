@@ -8,7 +8,11 @@ let y = 0;
 let cnvX = 2000 / 2;
 let cnvY = 1000 / 2;
 let vel = 10;
+let song;
 
+// function preload() {
+//   song = loadSound("assests/soundeffect.mp3");
+// }
 
 function setup() {
   //Co-ord print function call
@@ -17,6 +21,15 @@ function setup() {
   createCanvas(2000, 1000);
   //Load background image
   imageBackground = loadImage("nightsky.png");
+  song = loadSound("assets/soundeffect.mp3");
+}
+
+function mousePressed() {
+  if (song.isPlaying()) {
+    song.stop();
+  } else if (mouseX >= 330 && mouseX <= 444 && mouseY >= 685 && mouseY <= 879) {
+    song.play();
+  }
 }
 
 function draw() {
@@ -81,7 +94,7 @@ function house() {
   rect(325, 680, 125, 200);
   //door proper
   fill(54, 22, 4);
-  rect(330, 685, 115, 195);
+  door = rect(330, 685, 115, 195);
   //door knob
   fill(255, 196, 0);
   ellipse(350, 800, 15, 15);
