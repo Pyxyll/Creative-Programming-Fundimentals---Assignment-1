@@ -4,11 +4,13 @@
 
 var moonStartingPos = -200;
 var imageBackground;
-let y = 0;
-let cnvX = 2000 / 2;
-let cnvY = 1000 / 2;
-let vel = 10;
-let song;
+var y = 0;
+var cnvX = 2000 / 2;
+var cnvY = 1000 / 2;
+var cnvSquareX = 2000 / 2;
+var cnvSquareY = 1000 / 2;
+var vel = 10;
+var song;
 
 // function preload() {
 //   song = loadSound("assests/soundeffect.mp3");
@@ -24,19 +26,11 @@ function setup() {
   song = loadSound("assets/soundeffect.mp3");
 }
 
-function mousePressed() {
-  if (song.isPlaying()) {
-    song.stop();
-  } else if (mouseX >= 330 && mouseX <= 444 && mouseY >= 685 && mouseY <= 879) {
-    song.play();
-  }
-}
-
 function draw() {
   background(imageBackground);
   //Moon move & reset
-  moonStartingPos = moonStartingPos + 3;
-  if (moonStartingPos >= width) {
+  moonStartingPos = moonStartingPos + 5;
+  if (moonStartingPos >= width + 200) {
     moonStartingPos = -200;
   }
 
@@ -45,9 +39,18 @@ function draw() {
   cloudPos();
   house();
   witch();
-  spaceCraft();
+  //spaceCraft();
+  altSpaceCraft();
   streetLamp();
   keyPressed();
+}
+
+function mousePressed() {
+  if (song.isPlaying()) {
+    song.stop();
+  } else if (mouseX >= 330 && mouseX <= 444 && mouseY >= 685 && mouseY <= 879) {
+    song.play();
+  }
 }
 
 function road() {
@@ -122,22 +125,22 @@ function electricBox() {
 }
 
 function bush() {
-  var xpos1 = 150;
-  var xpos2 = 200;
-  var xpos3 = 100;
-  var xpos4 = 110;
+  var xPos1 = 150;
+  var xPos2 = 200;
+  var xPos3 = 100;
+  var xPos4 = 110;
   //bush offset
-  var moveFactor = 450;
+  var bushOffset = 450;
   //bush object
   fill(0, 99, 38);
-  ellipse(xpos1, 830, 100, 100);
-  ellipse(xpos2, 835, 100, 90);
-  ellipse(xpos3, 855, 50, 50);
-  ellipse(xpos4, 835, 50, 50);
-  ellipse(xpos1 + moveFactor, 830, 100, 100);
-  ellipse(xpos2 + moveFactor, 835, 100, 90);
-  ellipse(xpos3 + moveFactor, 855, 50, 50);
-  ellipse(xpos4 + moveFactor, 835, 50, 50);
+  ellipse(xPos1, 830, 100, 100);
+  ellipse(xPos2, 835, 100, 90);
+  ellipse(xPos3, 855, 50, 50);
+  ellipse(xPos4, 835, 50, 50);
+  ellipse(xPos1 + bushOffset, 830, 100, 100);
+  ellipse(xPos2 + bushOffset, 835, 100, 90);
+  ellipse(xPos3 + bushOffset, 855, 50, 50);
+  ellipse(xPos4 + bushOffset, 835, 50, 50);
 }
 
 function windows() {
@@ -376,6 +379,60 @@ function spaceCraft() {
   ellipse(1297, 266, 45, 20);
 }
 
+function altSpaceCraft() {
+  //beam
+  fill(random(255), random(255), random(255), 50);
+  quad(cnvX, cnvY, cnvX, cnvY, 357, 206, 573, 480);
+  //engine
+  fill(69, 168, 255);
+  ellipse(cnvX, cnvY+45, 120, 90);
+  //body detail
+  fill(102, 118, 140);
+  ellipse(cnvX, cnvY+25, 300, 90);
+  //body
+  fill(134, 152, 179);
+  ellipse(cnvX, cnvY, 350, 100);
+  //cockpit
+  fill(69, 168, 255);
+  ellipse(cnvX, cnvY-30, 190, 100);
+  //flashing circles
+  fill(random(255), random(255), random(255));
+  ellipse(cnvX-135, cnvY-10, 45, 20);
+  ellipse(cnvX-80, cnvY+22, 45, 20);
+  ellipse(cnvX+80, cnvY+22, 45, 20);
+  ellipse(cnvX, cnvY+35, 45, 20);
+  ellipse(cnvX+135, cnvY-10, 45, 20);
+
+
+    //green square control with arrow keys (using keyis down for better directional control)
+    // fill(0, 255, 0, 200);
+    // rect(cnvX, cnvY, 100, 100, 5);
+    if (keyIsDown(UP_ARROW)) {
+      cnvY -= vel;
+    }
+    if (keyIsDown(DOWN_ARROW)) {
+      cnvY += vel;
+    }
+    if (keyIsDown(RIGHT_ARROW)) {
+      cnvX += vel;
+    }
+    if (keyIsDown(LEFT_ARROW)) {
+      cnvX -= vel;
+    }
+    //Limiting square movement
+    if (cnvX >= 1900) {
+      cnvX = 1900;
+    } else if (cnvX <= 0) {
+      cnvX = 0;
+    }
+  
+    if (cnvY >= 900) {
+      cnvY = 900;
+    } else if (cnvY <= 0) {
+      cnvY = 0;
+    }
+}
+
 function cloudPos() {
   //creating offset factor for mouse reactive clouds
   var mouseOffsetX = mouseX / 100;
@@ -428,30 +485,30 @@ function streetLamp() {
 function keyPressed() {
   //green square control with arrow keys (using keyis down for better directional control)
   fill(0, 255, 0, 200);
-  rect(cnvX, cnvY, 100, 100, 5);
-  if (keyIsDown(UP_ARROW)) {
-    cnvY -= vel;
+  rect(cnvSquareX, cnvSquareY, 100, 100, 5);
+  if (keyIsDown(87)) {
+    cnvSquareY -= vel;
   }
-  if (keyIsDown(DOWN_ARROW)) {
-    cnvY += vel;
+  if (keyIsDown(83)) {
+    cnvSquareY += vel;
   }
-  if (keyIsDown(RIGHT_ARROW)) {
-    cnvX += vel;
+  if (keyIsDown(68)) {
+    cnvSquareX += vel;
   }
-  if (keyIsDown(LEFT_ARROW)) {
-    cnvX -= vel;
+  if (keyIsDown(65)) {
+    cnvSquareX -= vel;
   }
-  //Limiting square movement
-  if (cnvX >= 1900) {
-    cnvX = 1900;
-  } else if (cnvX <= 0) {
-    cnvX = 0;
+//   //Limiting square movement
+  if (cnvSquareX >= 1900) {
+    cnvSquareX = 1900;
+  } else if (cnvSquareX <= 0) {
+    cnvSquareX = 0;
   }
 
-  if (cnvY >= 900) {
-    cnvY = 900;
-  } else if (cnvY <= 0) {
-    cnvY = 0;
+  if (cnvSquareY >= 900) {
+    cnvSquareY = 900;
+  } else if (cnvSquareY <= 0) {
+    cnvSquareY = 0;
   }
   //resetting square when reaching canvas bounds
   // if (cnvX >= 2000) {
